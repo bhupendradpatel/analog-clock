@@ -1,38 +1,182 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins';
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+  --black: #111111;
+  --red: #d64612;
+  --orange: #e48307;
+  --pink: #e524c3;
+  --magenta: #8626b2;
+  --white: #ffffff;
+  --light-blue: #39a2db;
+  --clock-border: rgba(255, 255, 255, .1);
+  --clock-background-color: rgba(255, 255, 255, .05);
+  --clock-box-shadow: rgba(0, 0, 0, .2);
+  --hour-hand: #ff3d68;
+  /*--black: #ffffff; !* Change black to white *!*/
+  /*--red: #ff7b53; !* Lighter shade of red *!*/
+  /*--orange: #ffa73e; !* Lighter shade of orange *!*/
+  /*--pink: #ff4fd3; !* Lighter shade of pink *!*/
+  /*--magenta: #b767e5; !* Lighter shade of magenta *!*/
+  /*--white: #111111; !* Change white to black *!*/
+  /*--light-blue: #55ccff; !* Lighter shade of light blue *!*/
+  /*--clock-border: rgba(0, 0, 0, 0.1); !* Change clock border to black *!*/
+  /*--clock-background-color: rgba(0, 0, 0, 0.05); !* Change clock background color to black *!*/
+  /*--clock-box-shadow: rgba(255, 255, 255, 0.2); !* Change clock box shadow to white *!*/
+  /*--hour-hand: #ff3d68; !* Keep hour hand color as it is *!*/
+
+  --clock-size-width: 450px;
+  --clock-size-height: 450px;
+  --minute-hand-height: calc((var(--clock-size-height) / 2) * 0.75);
+  --second-hand-height: calc((var(--clock-size-height) / 2) * 0.80);
+  --hour-hand-height: calc((var(--clock-size-height) / 2) * 0.6);
+  --graduation-height: calc((var(--clock-size-height) / 2) * 0.1);
+  --graduation-height-5: calc((var(--clock-size-height) / 2) * 0.2);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
+  height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background: var(--black);
 }
 
-.App-link {
-  color: #61dafb;
+.container {
+  position: relative;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+.container .circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: 2s ease-in infinite alternate;
+}
+
+.container .clock {
+  width: var(--clock-size-width);
+  height: var(--clock-size-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--clock-border);
+  border-radius: 50%;
+  backdrop-filter: blur(15px);
+  background: var(--clock-background-color);
+  box-shadow: 0 0 30px var(--clock-box-shadow);
+}
+
+.container .clock .graduations {
+  top: 0;
+  width: 1px;
+  position: absolute;
+  height: calc(var(--clock-size-height) / 2);
+  transform-origin: bottom;
+}
+
+.container .clock .graduations:nth-child(5n) {
+  width: 3px;
+  position: absolute;
+}
+
+.graduations .stick {
+  position: absolute;
+  top: 4px;
+  width: 100%;
+  height: var(--graduation-height);
+  background: var(--white);
+}
+
+.graduations:nth-child(5n) .stick {
+  height: var(--graduation-height-5);
+}
+
+.container .circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: 2s ease-in infinite alternate;
+}
+
+.container .circle:nth-child(1) {
+  width: 180px;
+  height: 180px;
+  bottom: -60px;
+  left: -60px;
+  background: linear-gradient(var(--pink), var(--magenta));
+  animation-name: move-up;
+}
+
+@keyframes move-up {
   to {
-    transform: rotate(360deg);
+    transform: translateY(-10px);
   }
+}
+
+.container .circle:nth-child(2) {
+  width: 120px;
+  height: 120px;
+  top: -20px;
+  right: -20px;
+  background: linear-gradient(var(--red), var(--orange));
+  animation-name: move-down;
+}
+
+@keyframes move-down {
+  to {
+    transform: translateY(10px);
+  }
+}
+
+.container .indicator {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.indicator::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  z-index: 100;
+  background: var(--white);
+  border: 4px solid var(--light-blue);
+}
+
+.indicator .hand{
+  position: absolute;
+  bottom: 0;
+  transform-origin: bottom;
+}
+
+.indicator .hand.hour {
+  height: var(--hour-hand-height);
+  width: 8px;
+  background: var(--hour-hand);
+  z-index: 10;
+  border-radius: 4px;
+}
+
+.indicator .hand.minute {
+  height: var(--minute-hand-height);
+  width: 4px;
+  background: var(--light-blue);
+  z-index: 11;
+  border-radius: 2px;
+}
+
+.indicator .hand.second {
+  height: var(--second-hand-height);
+  width: 2px;
+  background: var(--white);
+  z-index: 12;
+  border-radius: 1px;
 }
