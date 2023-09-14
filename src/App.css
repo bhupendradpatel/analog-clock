@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins';
+  font-family: 'Poppins', sans-serif;
 }
 
 :root {
@@ -29,8 +29,8 @@
   /*--clock-box-shadow: rgba(255, 255, 255, 0.2); !* Change clock box shadow to white *!*/
   /*--hour-hand: #ff3d68; !* Keep hour hand color as it is *!*/
 
-  --clock-size-width: 450px;
-  --clock-size-height: 450px;
+  --clock-size-width: 320px;
+  --clock-size-height: 320px;
   --minute-hand-height: calc((var(--clock-size-height) / 2) * 0.75);
   --second-hand-height: calc((var(--clock-size-height) / 2) * 0.80);
   --hour-hand-height: calc((var(--clock-size-height) / 2) * 0.6);
