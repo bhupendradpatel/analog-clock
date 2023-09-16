@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "39be3f04a56546e466f0",
+    "revision": "2718dc76c549042e2002",
     "url": "/analog-clock/static/css/main.64b36151.chunk.css"
   },
   {
-    "revision": "39be3f04a56546e466f0",
-    "url": "/analog-clock/static/js/main.8f19c47c.chunk.js"
+    "revision": "2718dc76c549042e2002",
+    "url": "/analog-clock/static/js/main.61a2f357.chunk.js"
   },
   {
     "revision": "b7de9abf93a274b3673c",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/analog-clock/static/media/clock-ticking-sound.453d2b1c.mp3"
   },
   {
-    "revision": "446af2631ef8faec5a5a82ee4c1d69e6",
+    "revision": "d42552bcd63b67070ba4e4229bccd15b",
     "url": "/analog-clock/index.html"
   }
 ];
