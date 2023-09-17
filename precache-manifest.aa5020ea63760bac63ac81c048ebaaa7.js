@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "02fbf75f49a795a9fc4b",
-    "url": "/analog-clock/static/css/main.64b36151.chunk.css"
+    "revision": "df0510bfd00edd091e58",
+    "url": "/analog-clock/static/css/main.b9f968f7.chunk.css"
   },
   {
-    "revision": "02fbf75f49a795a9fc4b",
-    "url": "/analog-clock/static/js/main.56175929.chunk.js"
+    "revision": "df0510bfd00edd091e58",
+    "url": "/analog-clock/static/js/main.6cfc5727.chunk.js"
   },
   {
     "revision": "6b72542d505829460844",
     "url": "/analog-clock/static/js/runtime~main.a7921369.js"
   },
   {
-    "revision": "e6c374864bb3cc9fcd0e",
-    "url": "/analog-clock/static/js/2.4ba71ebc.chunk.js"
+    "revision": "8484a4eacde89ec6c2fd",
+    "url": "/analog-clock/static/js/2.a879ad32.chunk.js"
   },
   {
     "revision": "cecf616dbfc830b280dc",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/analog-clock/static/media/clock-ticking-sound.453d2b1c.mp3"
   },
   {
-    "revision": "f6db624da09035e78466b21517f90509",
+    "revision": "a5e254fb12344d17b5ac65bebed2d4bb",
     "url": "/analog-clock/index.html"
   }
 ];

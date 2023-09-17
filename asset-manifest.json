@@ -1,16 +1,16 @@
 {
-  "main.css": "/analog-clock/static/css/main.64b36151.chunk.css",
-  "main.js": "/analog-clock/static/js/main.56175929.chunk.js",
-  "main.js.map": "/analog-clock/static/js/main.56175929.chunk.js.map",
+  "main.css": "/analog-clock/static/css/main.b9f968f7.chunk.css",
+  "main.js": "/analog-clock/static/js/main.6cfc5727.chunk.js",
+  "main.js.map": "/analog-clock/static/js/main.6cfc5727.chunk.js.map",
   "runtime~main.js": "/analog-clock/static/js/runtime~main.a7921369.js",
   "runtime~main.js.map": "/analog-clock/static/js/runtime~main.a7921369.js.map",
-  "static/js/2.4ba71ebc.chunk.js": "/analog-clock/static/js/2.4ba71ebc.chunk.js",
-  "static/js/2.4ba71ebc.chunk.js.map": "/analog-clock/static/js/2.4ba71ebc.chunk.js.map",
+  "static/js/2.a879ad32.chunk.js": "/analog-clock/static/js/2.a879ad32.chunk.js",
+  "static/js/2.a879ad32.chunk.js.map": "/analog-clock/static/js/2.a879ad32.chunk.js.map",
   "static/js/3.d7f7bd74.chunk.js": "/analog-clock/static/js/3.d7f7bd74.chunk.js",
   "static/js/3.d7f7bd74.chunk.js.map": "/analog-clock/static/js/3.d7f7bd74.chunk.js.map",
   "index.html": "/analog-clock/index.html",
-  "precache-manifest.77446e99bd337dd7454ff3df8f9d6040.js": "/analog-clock/precache-manifest.77446e99bd337dd7454ff3df8f9d6040.js",
+  "precache-manifest.aa5020ea63760bac63ac81c048ebaaa7.js": "/analog-clock/precache-manifest.aa5020ea63760bac63ac81c048ebaaa7.js",
   "service-worker.js": "/analog-clock/service-worker.js",
-  "static/css/main.64b36151.chunk.css.map": "/analog-clock/static/css/main.64b36151.chunk.css.map",
+  "static/css/main.b9f968f7.chunk.css.map": "/analog-clock/static/css/main.b9f968f7.chunk.css.map",
   "static/media/clock-ticking-sound.mp3": "/analog-clock/static/media/clock-ticking-sound.453d2b1c.mp3"
 }
