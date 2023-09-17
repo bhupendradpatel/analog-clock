@@ -1,4 +1,5 @@
 import React, {useEffect, useRef} from 'react';
+import AudioPlayer from './components/AudioPlayer/AudioPlayer';
 import {setTimeForClock} from './App.utils';
 import './App.css';
 
@@ -25,7 +26,7 @@ function App() {
 				<div className={'clock'}>
 					{new Array(60).fill('').map((_, index) => {
 						const rotate = `rotate(${( index + 1)  * 6}deg)`;
-						return (<div className={'graduations'} style={{transform: rotate}}>
+						return (<div key={index} className={'graduations'} style={{transform: rotate}}>
 							<div className={'stick'}></div>
 						</div>)
 					})}
@@ -37,6 +38,7 @@ function App() {
 					</div>
 				</div>
 			</div>
+			<AudioPlayer />
 		</div>
 	);
 }
