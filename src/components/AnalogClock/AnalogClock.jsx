@@ -54,12 +54,14 @@ function AnalogClock({
 	const angles = getHandAngles(parts, smooth);
 
 	return (
-		<div className={'clock-unit'}>
+		// Size vars live on the unit root so the decorative circles (siblings of
+		// .clock) scale with the face instead of staying at a fixed size.
+		<div className={'clock-unit'} style={sizeVars(size)}>
 			<div className={'container'}>
 				<div className={'circle'}></div>
 				<div className={'circle'}></div>
 
-				<div className={`clock skin-${skin}`} style={sizeVars(size)}>
+				<div className={`clock skin-${skin}`}>
 					{skin === 'roman' ? <Numerals /> : <Graduations skin={skin} />}
 
 					<div className={'indicator'}>

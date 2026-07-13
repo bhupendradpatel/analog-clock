@@ -70,6 +70,9 @@ body {
   gap: 12px;
   padding: 14px 20px;
   flex-wrap: wrap;
+  border-bottom: 1px solid var(--panel-border);
+  position: relative;
+  z-index: 100;
 }
 
 .tabs {
@@ -104,7 +107,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 32px 20px 40px;
 }
 
 /* ---------- Clock ---------- */
@@ -112,11 +115,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 10px;
 }
 
 .container {
   position: relative;
+  /* Clear the bottom-left blob so it never covers the text below the face. */
+  margin-bottom: calc(var(--clock-size-height) * 0.14);
 }
 
 .container .circle {
@@ -169,11 +174,12 @@ body {
   width: 3px;
 }
 
+/* Blobs scale with the clock face so small (world) clocks keep them contained. */
 .container .circle:nth-child(1) {
-  width: 180px;
-  height: 180px;
-  bottom: -60px;
-  left: -60px;
+  width: calc(var(--clock-size-width) * 0.5);
+  height: calc(var(--clock-size-height) * 0.5);
+  bottom: calc(var(--clock-size-height) * -0.13);
+  left: calc(var(--clock-size-width) * -0.13);
   background: linear-gradient(var(--pink), var(--magenta));
   animation-name: move-up;
 }
@@ -185,10 +191,10 @@ body {
 }
 
 .container .circle:nth-child(2) {
-  width: 120px;
-  height: 120px;
-  top: -20px;
-  right: -20px;
+  width: calc(var(--clock-size-width) * 0.36);
+  height: calc(var(--clock-size-height) * 0.36);
+  top: calc(var(--clock-size-height) * -0.06);
+  right: calc(var(--clock-size-width) * -0.06);
   background: linear-gradient(var(--red), var(--orange));
   animation-name: move-down;
 }
@@ -285,20 +291,32 @@ body {
   box-shadow: 0 0 30px var(--clock-box-shadow), inset 0 0 25px rgba(57, 162, 219, .25);
 }
 
+/* Text sits above the decorative blobs in the stacking order. */
+.clock-label,
+.digital,
+.clock-date {
+  position: relative;
+  z-index: 20;
+}
+
 .clock-label {
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   color: var(--muted);
 }
 
 .digital {
-  font-size: 26px;
+  font-size: clamp(18px, calc(var(--clock-size-width) * 0.085), 28px);
   font-weight: 600;
   letter-spacing: 1px;
   font-variant-numeric: tabular-nums;
 }
 
 .clock-date {
-  font-size: 14px;
+  font-size: 13px;
+  letter-spacing: 1px;
   color: var(--muted);
 }
 
@@ -389,24 +407,42 @@ body {
 }
 
 .world-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  justify-items: stretch;
 }
 
+/* Each world clock lives in its own clipped card, so decorative blobs can
+   never bleed into a neighbouring clock. */
 .world-item {
   position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 30px 16px 22px;
+  border-radius: 20px;
+  border: 1px solid var(--panel-border);
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.world-item .digital {
+  font-size: 20px;
 }
 
 .remove-btn {
   position: absolute;
-  top: -6px;
-  right: -6px;
+  top: 10px;
+  right: 10px;
   width: 26px;
   height: 26px;
-  font-size: 13px;
-  z-index: 5;
+  font-size: 12px;
+  z-index: 30;
+  opacity: .6;
+}
+
+.remove-btn:hover {
+  opacity: 1;
 }
 
 /* ---------- Tools (stopwatch / timer / alarm) ---------- */
