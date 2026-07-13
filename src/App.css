@@ -6,28 +6,26 @@
 }
 
 :root {
-  --black: #111111;
   --red: #d64612;
   --orange: #e48307;
   --pink: #e524c3;
   --magenta: #8626b2;
-  --white: #ffffff;
   --light-blue: #39a2db;
+
+  /* Dark theme (default) */
+  --bg: #111111;
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, .45);
+  --panel: rgba(255, 255, 255, .06);
+  --panel-border: rgba(255, 255, 255, .12);
+  --accent: #39a2db;
+  --tick: #ffffff;
   --clock-border: rgba(255, 255, 255, .1);
   --clock-background-color: rgba(255, 255, 255, .05);
   --clock-box-shadow: rgba(0, 0, 0, .2);
   --hour-hand: #ff3d68;
-  /*--black: #ffffff; !* Change black to white *!*/
-  /*--red: #ff7b53; !* Lighter shade of red *!*/
-  /*--orange: #ffa73e; !* Lighter shade of orange *!*/
-  /*--pink: #ff4fd3; !* Lighter shade of pink *!*/
-  /*--magenta: #b767e5; !* Lighter shade of magenta *!*/
-  /*--white: #111111; !* Change white to black *!*/
-  /*--light-blue: #55ccff; !* Lighter shade of light blue *!*/
-  /*--clock-border: rgba(0, 0, 0, 0.1); !* Change clock border to black *!*/
-  /*--clock-background-color: rgba(0, 0, 0, 0.05); !* Change clock background color to black *!*/
-  /*--clock-box-shadow: rgba(255, 255, 255, 0.2); !* Change clock box shadow to white *!*/
-  /*--hour-hand: #ff3d68; !* Keep hour hand color as it is *!*/
+  --minute-hand: #39a2db;
+  --second-hand: #ffffff;
 
   --clock-size-width: 320px;
   --clock-size-height: 320px;
@@ -38,12 +36,83 @@
   --graduation-height-5: calc((var(--clock-size-height) / 2) * 0.2);
 }
 
+:root[data-theme="light"] {
+  --bg: #eef1f6;
+  --text: #1b2130;
+  --muted: rgba(27, 33, 48, .5);
+  --panel: rgba(0, 0, 0, .04);
+  --panel-border: rgba(0, 0, 0, .12);
+  --tick: #2a3550;
+  --clock-border: rgba(0, 0, 0, .12);
+  --clock-background-color: rgba(255, 255, 255, .55);
+  --clock-box-shadow: rgba(0, 0, 0, .12);
+  --second-hand: #1b2130;
+}
+
 body {
-  height: 100vh;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  transition: background .3s ease, color .3s ease;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Top bar & tabs ---------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  flex-wrap: wrap;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid transparent;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all .2s ease;
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab.active {
+  color: var(--text);
+  background: var(--panel);
+  border-color: var(--panel-border);
+}
+
+.stage {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--black);
+  padding: 20px;
+}
+
+/* ---------- Clock ---------- */
+.clock-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
 }
 
 .container {
@@ -80,7 +149,6 @@ body {
 
 .container .clock .graduations:nth-child(5n) {
   width: 3px;
-  position: absolute;
 }
 
 .graduations .stick {
@@ -88,18 +156,17 @@ body {
   top: 4px;
   width: 100%;
   height: var(--graduation-height);
-  background: var(--white);
+  background: var(--tick);
 }
 
 .graduations:nth-child(5n) .stick {
   height: var(--graduation-height-5);
 }
 
-.container .circle {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  animation: 2s ease-in infinite alternate;
+/* Minimal skin: every tick is a major tick */
+.skin-minimal .graduations .stick {
+  height: var(--graduation-height-5);
+  width: 3px;
 }
 
 .container .circle:nth-child(1) {
@@ -145,8 +212,8 @@ body {
   width: 10px;
   border-radius: 50%;
   z-index: 100;
-  background: var(--white);
-  border: 4px solid var(--light-blue);
+  background: var(--text);
+  border: 4px solid var(--accent);
   transform: translate(-50%, -50%);
 }
 
@@ -168,7 +235,7 @@ body {
 .indicator .hand.minute {
   height: var(--minute-hand-height);
   width: 4px;
-  background: var(--light-blue);
+  background: var(--minute-hand);
   z-index: 11;
   border-radius: 2px;
 }
@@ -176,7 +243,288 @@ body {
 .indicator .hand.second {
   height: var(--second-hand-height);
   width: 2px;
-  background: var(--white);
+  background: var(--second-hand);
   z-index: 12;
   border-radius: 1px;
+}
+
+/* Roman-numeral skin */
+.numerals {
+  position: absolute;
+  inset: 0;
+}
+
+.numeral {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 10px;
+}
+
+.numeral span {
+  font-size: calc(var(--clock-size-height) * 0.07);
+  font-weight: 600;
+  color: var(--tick);
+}
+
+/* Neon skin */
+.skin-neon .graduations .stick {
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+.skin-neon .hand.hour,
+.skin-neon .hand.minute,
+.skin-neon .hand.second {
+  box-shadow: 0 0 10px currentColor;
+}
+
+.skin-neon.clock {
+  box-shadow: 0 0 30px var(--clock-box-shadow), inset 0 0 25px rgba(57, 162, 219, .25);
+}
+
+.clock-label {
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.digital {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-variant-numeric: tabular-nums;
+}
+
+.clock-date {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ---------- Settings ---------- */
+.settings {
+  position: relative;
+}
+
+.icon-btn {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  color: var(--text);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings-panel {
+  position: absolute;
+  right: 0;
+  top: 50px;
+  width: 260px;
+  background: var(--bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  padding: 10px 14px;
+  z-index: 200;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, .35);
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 0;
+  font-size: 14px;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.settings-row:last-child {
+  border-bottom: none;
+}
+
+.settings-row select,
+.settings-row input[type="range"] {
+  max-width: 130px;
+}
+
+.pill {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.pill:hover {
+  filter: brightness(1.08);
+}
+
+/* ---------- World clock ---------- */
+.world-clock {
+  width: 100%;
+  max-width: 900px;
+}
+
+.world-toolbar {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.world-toolbar select {
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  background: var(--panel);
+  color: var(--text);
+}
+
+.world-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.world-item {
+  position: relative;
+}
+
+.remove-btn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 26px;
+  height: 26px;
+  font-size: 13px;
+  z-index: 5;
+}
+
+/* ---------- Tools (stopwatch / timer / alarm) ---------- */
+.tool {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 28px;
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  background: var(--panel);
+}
+
+.tool-display {
+  font-size: 56px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 2px;
+}
+
+.tool-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.tool-buttons .pill {
+  padding: 10px 22px;
+  font-size: 15px;
+}
+
+.tool-msg {
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.timer-inputs,
+.alarm-add {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.timer-inputs input {
+  width: 70px;
+  font-size: 28px;
+  text-align: center;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.alarm-add input[type="time"] {
+  font-size: 18px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.laps,
+.alarm-list {
+  width: 100%;
+  list-style: none;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.laps li,
+.alarm-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 4px;
+  border-bottom: 1px solid var(--panel-border);
+  font-variant-numeric: tabular-nums;
+}
+
+.alarm-time {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.alarm-list li.disabled .alarm-time {
+  color: var(--muted);
+}
+
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.flash {
+  animation: flash 0.8s ease-in-out infinite;
+}
+
+@keyframes flash {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(213, 70, 18, 0);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(229, 36, 195, .8);
+    border-color: var(--pink);
+  }
 }
